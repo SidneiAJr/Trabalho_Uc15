@@ -70,6 +70,10 @@ const acaoSortear = () => {
 
   
   return (
+      <View style={styles.tela}>
+    <View style={styles.topo}>
+      <Text style={styles.titulo}>Minha Pokédex</Text>
+    </View>
     <View style={styles.container}>
      <Card style={styles.card}>
     <Card.Actions>
@@ -82,49 +86,69 @@ const acaoSortear = () => {
           }} 
         />
     <Card.Actions>
+      
       <Button onPress={acaoAlimentar}>Alimentar</Button>
         <Button style={styles.botao} onPress={acaoBrincar}>Brincar</Button>
         <Button onPress={acaoLimpar}>Limpar</Button>
         <Button onPress={acaoDormir}>Dormir</Button>
     </Card.Actions>
      <Text style={styles.texto}>Pokemon Sorteado: {pokemonSorteado ? pokemonSorteado.name.toUpperCase() : 'Nenhum'}</Text>
-    <Text style={styles.texto}>Alimento:{alimentar}</Text>
-    <Text style={styles.texto}>Brincar:{brincar}</Text>
-    <Text style={styles.texto}>Limpar:{limpar}</Text>
+    <Text style={styles.texto}>Fome:{alimentar}</Text>
+    <Text style={styles.texto}>Energia:{brincar}</Text>
+    <Text style={styles.texto}>Sujeira:{limpar}</Text>
     <Text style={styles.texto}>Sono:{dormir}</Text>
   </Card>
     </View>
-      
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container:{
-     flex: 1,
-     display: 'flex',
-     justifyContent: 'center',
-     alignItems: 'center',
-     padding:5,
-     backgroundColor: 'red',
-     borderRadius: 10,
-    },
-   texto:{
-    fontSize:20,
-    color:'white',
-    fontWeight: 900
-   },
-   card:{
-     backgroundColor: 'rgba(171, 28, 28, 0.43)',
-     elevation: 5,
-     borderRadius:5
-   },
-   img:{
-    backgroundColor: 'rgba(0, 172, 252, 0.43)',
-    borderRadius: 50,
-    display: 'flex',
+  tela: {
+    flex: 1,
+    backgroundColor: '#F5F5F5',
+  },
+
+  topo: {
+    height: 80,
+    backgroundColor: '#DC0A2D',
     justifyContent: 'center',
-   },
-   botao:{
-    backgroundColor:'black'
-   }
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+
+  titulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: '#DC0A2D',
+  },
+
+  texto: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: '900',
+  },
+
+  card: {
+    backgroundColor: '#3B82F6',
+    elevation: 5,
+    borderRadius: 5,
+  },
+
+  img: {
+    backgroundColor: '#1E40AF',
+    borderRadius: 50,
+  },
+
+  botao: {
+    backgroundColor: 'black',
+  },
 })
