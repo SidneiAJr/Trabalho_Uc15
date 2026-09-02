@@ -9,10 +9,10 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={TelaPrincipal} />
-        <Stack.Screen name="TelaTreinar" component={TelaTreinar} />
-        <Stack.Screen name="TelaLista" component={TelaListaPokemons} />
+      <Stack.Navigator initialRouteName="Home" options={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={TelaPrincipal} options={{ headerShown: false }} />
+        <Stack.Screen name="TelaTreinar" component={TelaTreinar} options={{ headerShown: false }} />
+        <Stack.Screen name="TelaLista" component={TelaListaPokemons} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
