@@ -16,7 +16,7 @@ export default function TelaPrincipal({navigation}:any) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.botao}
-            onPress={() => navigation.navigate('TelaTreinar')}
+            onPress={() => navigation.navigate('TelaLista')}
           >
             <Text style={styles.textoBotao}>Tela Lista Pokemons</Text>
           </TouchableOpacity>
