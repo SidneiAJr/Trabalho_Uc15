@@ -15,7 +15,7 @@ export default function TelaListaPokemons() {
      const filtrados = pokemons.filter((item: any) =>item.name.includes(busca.toLowerCase())
 )
 useEffect(()=>{
-        axios.get('https://pokeapi.co/api/v2/pokemon?limit=1000')
+        axios.get('https://pokeapi.co/api/v2/pokemon?limit=5000')
         .then(resposta=>{
            setpokemons(resposta.data.results)
             setcarregando(false)
