@@ -4,6 +4,7 @@ import React from 'react'
 export default function TelaPrincipal({navigation}:any) {
   return (
     <View style={styles.container}>
+      
         <Text style={styles.titulo}>
           Tela Principal | Escolha a Ação
         </Text>
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '900',
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
     marginBottom: 20,
   },
 

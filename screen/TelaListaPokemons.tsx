@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View,TextInput,FlatList,TouchableOpacity,Image } from 'react-native'
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
+import { useNavigation } from '@react-navigation/native'
+
+
 
 export default function TelaListaPokemons() {
     const [pokemons, setpokemons] = useState([])
@@ -17,9 +20,23 @@ useEffect(()=>{
            setpokemons(resposta.data.results)
             setcarregando(false)
         })
+        
 },[])
+const navigation = useNavigation(
+
+);
+
   return (
     <View style={styles.container}>
+     
+    <TouchableOpacity
+      style={styles.botao}
+      onPress={() => navigation.goBack()}
+    >
+      <Text style={styles.texto}>← </Text>
+    </TouchableOpacity>
+ 
+
       <View style={styles.container_img}>
       </View>
       <Text style={styles.texto}>Pokedex</Text>
@@ -63,6 +80,19 @@ const styles = StyleSheet.create({
     imagem: { width: 60, height: 60, marginRight: 16 },
     nome: { fontSize: 20, fontWeight: 'bold', textTransform: 'capitalize' },
     input: { borderWidth: 1, borderColor: '#fffbfbff', borderRadius: 8, padding: 10, marginBottom: 16, fontSize: 16 },
-    texto:{fontSize:30, display:'flex',justifyContent: 'center',alignItems: 'center',textAlign: 'center',fontWeight:900},
+    texto:{fontSize:30, display:'flex',justifyContent: 'center',alignItems: 'center',textAlign: 'center',fontWeight:900, color:'white'},
     container_img:{display: 'flex', justifyContent: 'center', alignItems: 'center'},
+    botao: {
+      padding: 20,
+      margin: 10,
+      height:20,
+      width: 20,
+      backgroundColor: 'black',
+      borderRadius: 20,
+      color:'white',
+      textAlign: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
 })
