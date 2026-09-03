@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Card, Text } from 'react-native-paper';
+import { useState, useEffect } from 'react'
+import { Button, Card, Text, Portal, Dialog,PaperProvider } from 'react-native-paper';
 import { StyleSheet, View, Image, Modal, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 import { useAudioPlayer } from 'expo-audio'
@@ -30,6 +30,8 @@ export default function TelaTreinar() {
   const [pokemonSorteado, setPokemonSorteado] = useState<any>()
   const [escolhendo, setEscolhendo] = useState(false)
   const [level,setLevel] = useState(0)
+  const [mensagem, setMensagem] = useState('')
+
 
   const player = useAudioPlayer(require('../pok.mp3'))
   const player2 = useAudioPlayer(require('../up.mp3'))
@@ -55,20 +57,24 @@ export default function TelaTreinar() {
     return partes[partes.length - 2]
   }
 
+  const mostrarAlerta = (texto: string) => {
+  setMensagem(texto)
+}
+
   const acaoAlimentar = () => {
   if (alimentar >= 100) {
-    alert("Seu Pokémon já está cheio! 🍎")
+    mostrarAlerta("Seu Pokémon esta sem fome!")
     return
   }
 
-  setAlimentar(prev => Math.min(100, prev + 10))
-  setFelicidade(prev => Math.min(100, prev + 5))
+  setAlimentar(prev => Math.min(100, prev + 25))
+  setFelicidade(prev => Math.min(100, prev + 25))
 }
 
 const acaoBrincar = () => {
   if (energia <= 0 ) {
-    alert("Seu Pokémon está sem energia! 😴")
-   
+    mostrarAlerta("Seu Pokémon já está Cansado!")
+
     return
   } else {
     setHigiene(prev => Math.max(0, prev - 10))
@@ -76,7 +82,7 @@ const acaoBrincar = () => {
   }
 
   if (alimentar <= 0) {
-    alert("Seu Pokémon está com fome! 🍎")
+    mostrarAlerta("Seu Pokémon está com fome!")
     return
   }
 
@@ -90,7 +96,7 @@ const acaoBrincar = () => {
 
 const acaoLimpar = () => {
   if (higiene >= 100) {
-    alert("Seu Pokémon já está limpo! 🧼")
+    mostrarAlerta("Seu Pokémon já está limpo! 🧼")
     return
   }
 
@@ -100,7 +106,7 @@ const acaoLimpar = () => {
 
 const acaoDormir = () => {
   if (energia >= 100) {
-    alert("Seu Pokémon não está cansado! 😴")
+    mostrarAlerta("Seu Pokémon não está cansado! 😴")
     return
   }
 
@@ -132,6 +138,7 @@ const acaoDormir = () => {
 }, [level])
 
   return (
+     <PaperProvider>
     <View style={styles.tela}>
       <View style={styles.container}>
         <Card style={styles.card}>
@@ -155,7 +162,8 @@ const acaoDormir = () => {
             }}
           />
            <View style={styles.caixa}>
-            <Button style={styles.botao2}  onPress={acaoAlimentar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Alimentar</Text></Button>
+            <Button style={styles.botao2}  onPress={acaoAlimentar} disabled={pokemonSemCondicoes}>
+            <Text style={styles.texto1}>Alimentar</Text></Button>
             <Button style={styles.botao} onPress={acaoBrincar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Brincar</Text></Button>
             <Button style={styles.botao3} onPress={acaoLimpar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Limpar</Text></Button>
             <Button style={styles.botao4} onPress={acaoDormir} disabled={pokemonSemCondicoes} ><Text style={styles.texto1}>Dormir</Text></Button>
@@ -219,7 +227,26 @@ const acaoDormir = () => {
           </View>
         </View>
       </Modal>
+       <Portal>
+      <Dialog
+        visible={mensagem !== ''}
+        onDismiss={() => setMensagem('')}
+        style={styles.dialog}
+      >
+        <Dialog.Title style={styles.msg2}>🐾 Pokemon | Status</Dialog.Title>
+        <Dialog.Content>
+          <Text style={styles.msg}>{mensagem}</Text>
+        </Dialog.Content>
+
+        <Dialog.Actions>
+          <Button onPress={() => setMensagem('')}>
+            OK
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
     </View>
+    </PaperProvider>
   )
 }
 
@@ -262,5 +289,22 @@ const styles = StyleSheet.create({
   display:'flex',
     justifyContent:'center',
     alignItems:'center',
+ },
+ msg:{
+  fontSize: 20,
+  fontWeight: 900,
+  color: 'white'
+ },
+ dialog:{
+  backgroundColor: 'black'
+ },
+ msg2:{
+    fontSize: 20,
+  fontWeight: 900,
+  color: 'red'
+ },
+ icone:{
+  height: 50,
+  width: 50,
  }
 })
