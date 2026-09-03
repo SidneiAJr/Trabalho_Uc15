@@ -142,27 +142,25 @@ const acaoDormir = () => {
               style={styles.logo}
             />
           </View>
-            <Text style={styles.level}>Nivel Atual:{level}</Text>
-          <Card.Actions>
-            <Button style={styles.botao} onPress={() => setEscolhendo(true)}>
-              🎮 Escolher Inicial
+          <View style={styles.pokemon}>
+           <Text style={styles.level}>Nivel Atual:{level}</Text>
+            <Button style={styles.botao} onPress={() => setEscolhendo(true)}><Text style={styles.texto1}>Escolher Inicial</Text>
             </Button>
-          </Card.Actions>
-
+          </View>
+         
           <Card.Cover
             style={styles.img}
             source={{
               uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonSorteado ? getId(pokemonSorteado.url) : '1'}.png`
             }}
           />
-
-          <Card.Actions>
-            <Button style={styles.botao2} onPress={acaoAlimentar} disabled={pokemonSemCondicoes}>Alimentar</Button>
-            <Button style={styles.botao} onPress={acaoBrincar} disabled={pokemonSemCondicoes}>Brincar</Button>
-            <Button style={styles.botao3} onPress={acaoLimpar} disabled={pokemonSemCondicoes}>Limpar</Button>
-            <Button style={styles.botao4} onPress={acaoDormir} disabled={pokemonSemCondicoes} >Dormir</Button>
-          </Card.Actions>
-
+           <View style={styles.caixa}>
+            <Button style={styles.botao2}  onPress={acaoAlimentar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Alimentar</Text></Button>
+            <Button style={styles.botao} onPress={acaoBrincar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Brincar</Text></Button>
+            <Button style={styles.botao3} onPress={acaoLimpar} disabled={pokemonSemCondicoes}><Text style={styles.texto1}>Limpar</Text></Button>
+            <Button style={styles.botao4} onPress={acaoDormir} disabled={pokemonSemCondicoes} ><Text style={styles.texto1}>Dormir</Text></Button>
+           </View>
+          
           <Text style={styles.texto}>
             Pokemon: {pokemonSorteado ? pokemonSorteado.name.toUpperCase() : 'Nenhum'}
           </Text>
@@ -231,12 +229,12 @@ const styles = StyleSheet.create({
   titulo: { fontSize: 26, fontWeight: 'bold', color: 'white', textAlign: 'center' },
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 5, backgroundColor: '#DC0A2D' },
   texto: { fontSize: 20, color: 'white', fontWeight: '900', textAlign: 'center' },
-  card: { backgroundColor: '#f50000ce', elevation: 5, borderRadius: 10, borderColor: 'black', borderWidth: 6 },
+  card: { backgroundColor: '#f50000ce', elevation: 5, borderRadius: 10, borderColor: 'black', borderWidth: 6, width:400 },
   img: { backgroundColor: '#ffffff', borderRadius: 10, borderColor: 'black', borderWidth: 3 , height: 300},
-  botao: { backgroundColor: 'black', marginRight: 1 },
-  botao2: { backgroundColor: 'red' },
-  botao3: { backgroundColor: 'blue' },
-  botao4: { backgroundColor: 'green' },
+  botao: { backgroundColor: 'rgba(0, 0, 0, 0.2)', width:200, height:50, borderRadius: 15, borderColor:'black', borderWidth: 2 },
+  botao2: { backgroundColor: 'rgba(0, 0, 0, 0.2)' ,width:200, height:50, borderRadius: 15, borderColor:'black', borderWidth: 2 },
+  botao3: { backgroundColor: 'rgba(0, 0, 0, 0.2)' ,width:200, height:50, borderRadius: 15, borderColor:'black', borderWidth: 2 },
+  botao4: { backgroundColor: 'rgba(0, 0, 0, 0.2)' ,width:200, height:50, borderRadius: 15, borderColor:'black', borderWidth: 2 },
   logo: { width: 100, height: 100, borderColor: 'white', borderWidth: 2, borderRadius: 80 },
   modalFundo: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
   modalBox: { backgroundColor: '#3B82F6', borderRadius: 15, padding: 20, borderColor: 'black', borderWidth: 4, width: '85%' },
@@ -245,5 +243,24 @@ const styles = StyleSheet.create({
   modalCard: { backgroundColor: '#1E40AF', borderRadius: 10, padding: 10, alignItems: 'center', width: '45%', borderColor: 'black', borderWidth: 2 },
   modalImg: { width: 80, height: 80 },
   modalNome: { color: 'white', fontWeight: 'bold', marginTop: 5 },
-  level: {fontSize:35,color: 'white',fontWeight:900}
+  level: {fontSize:35,color: 'white',fontWeight:900},
+  caixa: {
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'column',
+     gap: 10,
+  },
+  texto1: {
+    color: 'white',
+    fontWeight: 900,
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+ pokemon: {
+  display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+ }
 })
