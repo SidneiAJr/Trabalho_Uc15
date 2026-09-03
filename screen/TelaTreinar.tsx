@@ -24,9 +24,9 @@ const evolucoes = {
 
 export default function TelaTreinar() {
   const [alimentar, setAlimentar] = useState(100)
-  const [felicidade, setEnergia] = useState(100)
+  const [felicidade, setFelicidade] = useState(100)
   const [higiene, setHigiene] = useState(100)
-  const [energia, setFelicidade] = useState(100)
+  const [energia, setEnergia] = useState(100)
   const [pokemonSorteado, setPokemonSorteado] = useState<any>()
   const [escolhendo, setEscolhendo] = useState(false)
   const [level,setLevel] = useState(0)
@@ -34,6 +34,11 @@ export default function TelaTreinar() {
   const player = useAudioPlayer(require('../pok.mp3'))
   const player2 = useAudioPlayer(require('../up.mp3'))
 
+  const pokemonSemCondicoes =
+    alimentar === 0 &&
+    energia === 0 &&
+    higiene === 0 &&
+    felicidade === 0
 
   const tocar = async () => {
     await player.seekTo(0)
@@ -66,7 +71,8 @@ const acaoBrincar = () => {
    
     return
   } else {
-    setHigiene(higiene - 10)
+    setHigiene(prev => Math.max(0, prev - 10))
+
   }
 
   if (alimentar <= 0) {
@@ -104,6 +110,7 @@ const acaoDormir = () => {
 
   const escolherPokemon = (poke: any) => {
     setPokemonSorteado({ name: poke.name, url: `https://pokeapi.co/api/v2/pokemon/${poke.id}/` })
+    setLevel(0)
     setEscolhendo(false)
   }
 
@@ -150,10 +157,10 @@ const acaoDormir = () => {
           />
 
           <Card.Actions>
-            <Button style={styles.botao2} onPress={acaoAlimentar}>Alimentar</Button>
-            <Button style={styles.botao} onPress={acaoBrincar}>Brincar</Button>
-            <Button style={styles.botao3} onPress={acaoLimpar}>Limpar</Button>
-            <Button style={styles.botao4} onPress={acaoDormir}>Dormir</Button>
+            <Button style={styles.botao2} onPress={acaoAlimentar} disabled={pokemonSemCondicoes}>Alimentar</Button>
+            <Button style={styles.botao} onPress={acaoBrincar} disabled={pokemonSemCondicoes}>Brincar</Button>
+            <Button style={styles.botao3} onPress={acaoLimpar} disabled={pokemonSemCondicoes}>Limpar</Button>
+            <Button style={styles.botao4} onPress={acaoDormir} disabled={pokemonSemCondicoes} >Dormir</Button>
           </Card.Actions>
 
           <Text style={styles.texto}>
