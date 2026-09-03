@@ -23,10 +23,10 @@ const evolucoes = {
 
 
 export default function TelaTreinar() {
-  const [alimentar, setAlimentar] = useState(0)
-  const [brincar, setBrincar] = useState(0)
-  const [limpar, setLimpar] = useState(0)
-  const [dormir, setDormir] = useState(100)
+  const [alimentar, setAlimentar] = useState(100)
+  const [felicidade, setEnergia] = useState(100)
+  const [higiene, setHigiene] = useState(100)
+  const [energia, setFelicidade] = useState(100)
   const [pokemonSorteado, setPokemonSorteado] = useState<any>()
   const [escolhendo, setEscolhendo] = useState(false)
   const [level,setLevel] = useState(0)
@@ -51,26 +51,56 @@ export default function TelaTreinar() {
   }
 
   const acaoAlimentar = () => {
-    setAlimentar(alimentar + 10)
-    setLevel(level + 1)
-    setDormir(Math.max(0, dormir - 10))
+  if (alimentar >= 100) {
+    alert("Seu Pokémon já está cheio! 🍎")
+    return
   }
 
-  const acaoBrincar = () => {
-    setBrincar(brincar + 10)
-    setLevel(level + 1)
-    setDormir(Math.max(0, dormir - 15))
+  setAlimentar(prev => Math.min(100, prev + 10))
+  setFelicidade(prev => Math.min(100, prev + 5))
+}
+
+const acaoBrincar = () => {
+  if (energia <= 0 ) {
+    alert("Seu Pokémon está sem energia! 😴")
+   
+    return
+  } else {
+    setHigiene(higiene - 10)
   }
 
-  const acaoLimpar = () => {
-    setLimpar(limpar + 10)
-    setLevel(level + 1)
-    setDormir(Math.max(0, dormir - 5))
+  if (alimentar <= 0) {
+    alert("Seu Pokémon está com fome! 🍎")
+    return
   }
 
-  const acaoDormir = () => {
-    setDormir(Math.min(100, dormir + 100))
+  setEnergia(prev => Math.max(0, prev - 15))
+  setFelicidade(prev => Math.min(100, prev + 10))
+  setAlimentar(prev => Math.max(0, prev - 5))
+
+  // Ganha 1 nível
+  setLevel(prev => prev + 1)
+}
+
+const acaoLimpar = () => {
+  if (higiene >= 100) {
+    alert("Seu Pokémon já está limpo! 🧼")
+    return
   }
+
+  setHigiene(prev => Math.min(100, prev + 20))
+  setFelicidade(prev => Math.min(100, prev + 5))
+}
+
+const acaoDormir = () => {
+  if (energia >= 100) {
+    alert("Seu Pokémon não está cansado! 😴")
+    return
+  }
+
+  setEnergia(prev => Math.min(100, prev + 30))
+  setFelicidade(prev => Math.min(100, prev + 5))
+}
 
   const escolherPokemon = (poke: any) => {
     setPokemonSorteado({ name: poke.name, url: `https://pokeapi.co/api/v2/pokemon/${poke.id}/` })
@@ -129,10 +159,22 @@ export default function TelaTreinar() {
           <Text style={styles.texto}>
             Pokemon: {pokemonSorteado ? pokemonSorteado.name.toUpperCase() : 'Nenhum'}
           </Text>
-          <Text style={styles.texto}>Fome: {alimentar}</Text>
-          <Text style={styles.texto}>Energia: {brincar}</Text>
-          <Text style={styles.texto}>Sujeira: {limpar}</Text>
-          <Text style={styles.texto}>Sono: {dormir}</Text>
+        <Text style={styles.texto}>
+  Saciedade: {alimentar}/100
+</Text>
+
+<Text style={styles.texto}>
+  Energia: {energia}/100
+</Text>
+
+<Text style={styles.texto}>
+  Higiene: {higiene}/100
+</Text>
+
+<Text style={styles.texto}>
+  Felicidade: {felicidade}/100
+</Text>
+       
         </Card>
       </View>
 
