@@ -3,8 +3,6 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 
-
-
 export default function TelaListaPokemons() {
     const [pokemons, setpokemons] = useState([])
     const [carregando,setcarregando]=useState(true)

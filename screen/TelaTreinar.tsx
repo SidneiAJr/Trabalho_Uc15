@@ -4,12 +4,16 @@ import { StyleSheet, View, Image, Modal, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 import { useAudioPlayer } from 'expo-audio'
 
+
+// Pokemons Inicias
 const pokemonsIniciais = [
   { name: "cyndaquil", id: 155 },
   { name: "pikachu", id: 25 },
   { name: "squirtle", id: 7 },
   { name: "bulbasaur", id: 1 }
 ]
+
+//Pokemons Evo + Level
 
 const evolucoes = {
   bulbasaur:  { nivel: 16, evolui: "ivysaur",     id: 2   },
@@ -36,6 +40,7 @@ export default function TelaTreinar() {
   const player = useAudioPlayer(require('../pok.mp3'))
   const player2 = useAudioPlayer(require('../up.mp3'))
 
+  // Setando pra 0
   const pokemonSemCondicoes =
     alimentar === 0 &&
     energia === 0 &&
@@ -119,6 +124,11 @@ const acaoDormir = () => {
     setLevel(0)
     setEscolhendo(false)
   }
+  
+
+  // keyof — quais são as chaves disso?
+  // typeof — "qual é o tipo disso?"
+
 
   useEffect(() => {
   if (!pokemonSorteado) return
